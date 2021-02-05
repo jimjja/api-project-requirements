@@ -1,0 +1,162 @@
+[
+  {
+    "id": "000",
+    "name": "latte",
+    "description": "Blend espresso with steamed milk for a smooth and creamy coffee.",
+    "beverageType": 0,
+    "ingredients": [
+      "coffee",
+      "milk",
+      "sugar"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "001",
+    "name": "hot chocolate",
+    "description": "We only use the best cocoa for this indulgent drink. Perfect for days when you need a hug in a cup.",
+    "beverageType": 3,
+    "ingredients": [
+      "cocoa powder",
+      "milk",
+      "sugar"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "002",
+    "name": "milk",
+    "description": "milk",
+    "beverageType": 3,
+    "ingredients": [
+      "milk"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "003",
+    "name": "lemon & ginger tea",
+    "description": "lemon & ginger tea",
+    "beverageType": 1,
+    "ingredients": [
+      "lemon",
+      "ginger",
+      "tea bag",
+      "honey"
+    ],
+    "allergens": [
+      "none"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "004",
+    "name": "peach iced tea",
+    "description": "peach iced tea",
+    "beverageType": 1,
+    "ingredients": [
+      "water",
+      "peach",
+      "peach infused teabag",
+      "ice"
+    ],
+    "allergens": [
+      "none"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "005",
+    "name": "americano",
+    "description": "Our signature Espresso softened with hot water. Drink it straight up or add a splash of milk.",
+    "beverageType": 0,
+    "ingredients": [
+      "premium coffee beans",
+      "water"
+    ],
+    "allergens": [
+      "none"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "006",
+    "name": "mocha",
+    "description": "Expertly steamed chocolate milk blended with espresso for a caffeinated chocolate treat",
+    "beverageType": 0,
+    "ingredients": [
+      "premium coffee beans",
+      "cocoa powder",
+      "milk"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "007",
+    "name": "cappuccino",
+    "description": "Made with our aromatic Espresso, frothy milk and decadent chocolate dusting.",
+    "beverageType": 0,
+    "ingredients": [
+      "premium coffee beans",
+      "cocoa powder",
+      "milk"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "008",
+    "name": "iced black americano",
+    "description": "Classic black coffee gently sweetened and served over ice.",
+    "beverageType": 3,
+    "ingredients": [
+      "premium coffee beans",
+      "milk",
+      "ice"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "0089",
+    "name": "mango and passion fruit cooler",
+    "description": "Mango and passionfruit puree base, simply blended with ice for a tropical and refreshing drink.",
+    "beverageType": 3,
+    "ingredients": [
+      "mango pulp",
+      "passion fruit juice",
+      "lemonade",
+      "ice"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  }
+]
