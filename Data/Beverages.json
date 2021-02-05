@@ -143,7 +143,7 @@
     "dateModified": "2021-01-01T08:24:17"
   },
   {
-    "id": "0089",
+    "id": "009",
     "name": "mango and passion fruit cooler",
     "description": "Mango and passionfruit puree base, simply blended with ice for a tropical and refreshing drink.",
     "beverageType": 3,
@@ -155,6 +155,23 @@
     ],
     "allergens": [
       "milk"
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "010",
+    "name": "red summer berries fruit cooler",
+    "description": "Summer berries puree base, simply blended with ice for a bright zing-y experience",
+    "beverageType": 3,
+    "ingredients": [
+      "strawberry pulp",
+      "cranberry juice",
+      "lemonade",
+      "ice"
+    ],
+    "allergens": [
+      ""
     ],
     "dateCreated": "2021-01-01T08:24:17",
     "dateModified": "2021-01-01T08:24:17"
