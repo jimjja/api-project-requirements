@@ -21,19 +21,19 @@ namespace ShalekKavy.Api.Services
                 .ToListAsync();
             return beverages;
         }
-        public IEnumerable<Beverage> GetById(string id)
+        public async Task<Beverage> GetById(string id)
         {
-            var beverage = _dbContext.Beverages.Where(x => x.Id == id);
+            var beverage = await _dbContext.Beverages.FirstOrDefaultAsync(x => x.Id == id);
             return beverage;
         }
-        public IEnumerable<Beverage> GetByBeverage(string name)
+        public async Task<List<Beverage>> GetByBeverageName(string name)
         {
-            var beverage = _dbContext.Beverages.Where(x => x.Name == name);
+            var beverage = await _dbContext.Beverages.Where(x => x.Name == name).ToListAsync();
             return beverage;
         }
-        public IEnumerable<Beverage> GetByBeverageType(BeverageType type)
+        public Task<List<Beverage>> GetByBeverageType(BeverageType type)
         {
-            var beverages = _dbContext.Beverages.Where(x => x.BeverageType == type);
+            var beverages = _dbContext.Beverages.Where(x => x.BeverageType == type).ToListAsync();
             return beverages;
         }
         public void AddBeverage(Beverage beverage)
@@ -43,20 +43,14 @@ namespace ShalekKavy.Api.Services
         }
         public void UpdateBeverage(Beverage beverage)
         {
-            if (!_dbContext.Beverages.Contains(beverage))
-            {
-                return;
-            }
-            _dbContext.Beverages.Update(beverage);
+            var updatedBeverage = beverage;
+            _dbContext.Beverages.Update(updatedBeverage);
             _dbContext.SaveChanges();
         }
         public void DeleteBeverage(string id)
         {
-            var beverage = _dbContext.Beverages.FirstOrDefault(x => x.Id == id);
-            if (beverage == null)
-            {
-                return;
-            }
+            var beverage = _dbContext.Beverages.First(x => x.Id == id);
+
             _dbContext.Beverages.Remove(beverage);
             _dbContext.SaveChanges();
         }

@@ -18,28 +18,32 @@ namespace ShalekKavy.Api.Controllers
         }
         // GET: BeverageController>
         [HttpGet]
-        public Task<List<Beverage>> Get()
+        public async Task<IActionResult> GetBeverages()
         {
-            var beverages = _repository.GetAll();
-            return beverages;
+            var beverages = await _repository.GetAll();
+            return Ok(beverages);
         }
         // GET <BeverageController>/5
         [HttpGet("{id}")]
-        public IEnumerable<Beverage> GetById(string id)
+        public async Task<IActionResult> GetBeverageById(string id)
         {
-            return _repository.GetById(id);
+            var beverage = await _repository.GetById(id);
+            return Ok(beverage);
         }
         // GET <BeverageController>/5
         [HttpGet("name/{name}")]
-        public IEnumerable<Beverage> GetByBeverage(string name)
+        public async Task<IActionResult> GetByBeverageName(string name)
         {
-            return _repository.GetByBeverage(name);
+            var data = await _repository.GetByBeverageName(name);
+            return Ok(data);
         }
         // GET <BeverageController>/5
         [HttpGet("type/{type}")]
-        public IEnumerable<Beverage> GetByBeverage(BeverageType type)
+        public async Task<IActionResult> GetByBeverageType(BeverageType type)
         {
-            return _repository.GetByBeverageType(type);
+            var data = await _repository.GetByBeverageType(type);
+            return Ok(data);
+           
         }
         // POST <BeverageController>
         [HttpPost]
@@ -49,22 +53,41 @@ namespace ShalekKavy.Api.Controllers
             var existingBeverage = beverages.Contains(beverage);
             if (existingBeverage)
             {
-                return BadRequest();
+                return BadRequest("The Id already exists in the databse. Please use another Id value.");
             }
             _repository.AddBeverage(beverage);
             return Ok(beverage);
         }
         // PUT api/<BeverageController>/
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Beverage beverage)
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateExistingBeverage(string id, [FromBody] Beverage beverage)
         {
+            var beverages = await _repository.GetAll();
+            var existingBeverage = beverages.Where(x => x.Id == id);
+
+            if (existingBeverage == null)
+            {
+                return BadRequest("The beverage does not exist in the database.");
+            }
+
             _repository.UpdateBeverage(beverage);
+
+            return Ok();
         }
         // DELETE api/<BeverageController>/5
-        [HttpDelete("{id}")]
-        public void Delete(string id)
+        [HttpDelete("delete/{id}")]
+        public async Task<IActionResult> DeleteExistingBeverage(string id)
         {
+            var beverages = await _repository.GetAll();
+            var existingBeverage = beverages.Where(x => x.Id == id);
+
+            if(!existingBeverage.Any())
+            {
+                return BadRequest("The beverage does not exist in the database.");
+            }
+
             _repository.DeleteBeverage(id);
+            return Ok();
         }
     }
 }

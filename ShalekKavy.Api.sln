@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShalekKavy.Api", "ShalekKavy.Api.csproj", "{624FE7D0-4C08-4DBF-8661-31FB5D2E68F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShalekKavy.Api", "ShalekKavy.Api.csproj", "{624FE7D0-4C08-4DBF-8661-31FB5D2E68F8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AC725170-7B33-4FFB-91C0-5E4C40B279DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShalekKavy.Api.UnitTests", "..\ShalekKavy.Api.UnitTests\ShalekKavy.Api.UnitTests.csproj", "{4BDEA50F-304A-4102-9649-F8ED2DCA4CEC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +19,16 @@ Global
 		{624FE7D0-4C08-4DBF-8661-31FB5D2E68F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{624FE7D0-4C08-4DBF-8661-31FB5D2E68F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{624FE7D0-4C08-4DBF-8661-31FB5D2E68F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BDEA50F-304A-4102-9649-F8ED2DCA4CEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BDEA50F-304A-4102-9649-F8ED2DCA4CEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BDEA50F-304A-4102-9649-F8ED2DCA4CEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BDEA50F-304A-4102-9649-F8ED2DCA4CEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4BDEA50F-304A-4102-9649-F8ED2DCA4CEC} = {AC725170-7B33-4FFB-91C0-5E4C40B279DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A13DF4C-C603-40D7-BD9A-872A703A07DC}
