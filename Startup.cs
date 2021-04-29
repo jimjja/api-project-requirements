@@ -27,20 +27,8 @@ namespace ShalekKavy.Api
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "ToDo API",
-                    Description = "A simple example ASP.NET Core Web API",
-                    TermsOfService = new Uri("https://example.com/terms"),
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Shayne Boyer",
-                        Email = string.Empty,
-                        Url = new Uri("https://twitter.com/spboyer"),
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Use under LICX",
-                        Url = new Uri("https://example.com/license"),
-                    }
+                    Title = "Beverages API",
+                    Description = "Beverages Web API",
                 });
             });
             services.AddTransient<IBeverageRepository, BeverageRepository>();
@@ -57,7 +45,7 @@ namespace ShalekKavy.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Test1 Api v1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Beverages v1");
             });
             app.UseHttpsRedirection();
             app.UseRouting();
