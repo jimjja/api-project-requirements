@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 using ShalekKavy.Api.Context;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 namespace ShalekKavy.Api.Services
 {
     public class BeverageRepository : IBeverageRepository
     {
-        private BeverageContext _dbContext;
+        private readonly BeverageContext _dbContext;
         public BeverageRepository(BeverageContext dbContext)
         {
             _dbContext = dbContext;
@@ -21,44 +18,43 @@ namespace ShalekKavy.Api.Services
                 .ToListAsync();
             return beverages;
         }
-        public IEnumerable<Beverage> GetById(string id)
+        public async Task<Beverage> GetById(string id)
         {
-            var beverage = _dbContext.Beverages.Where(x => x.Id == id);
+            var beverage = await _dbContext.Beverages.FirstOrDefaultAsync(x => x.Id == id);
             return beverage;
         }
-        public IEnumerable<Beverage> GetByBeverage(string name)
+        public async Task<Beverage> GetByBeverageName(string name)
         {
-            var beverage = _dbContext.Beverages.Where(x => x.Name == name);
+            var beverage = await _dbContext.Beverages.FirstOrDefaultAsync(x => x.Name == name);
+
             return beverage;
         }
-        public IEnumerable<Beverage> GetByBeverageType(BeverageType type)
+        public async Task<List<Beverage>> GetByBeverageType(BeverageType type)
         {
-            var beverages = _dbContext.Beverages.Where(x => x.BeverageType == type);
+            var beverages = await _dbContext.Beverages.Where(x => x.BeverageType == type).ToListAsync();
+
             return beverages;
         }
-        public void AddBeverage(Beverage beverage)
+        public async Task AddBeverage(Beverage beverage)
         {
             _dbContext.Beverages.Add(beverage);
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
         }
-        public void UpdateBeverage(Beverage beverage)
+        public async Task UpdateBeverage(Beverage existingBeverage, Beverage updatedBeverage)
         {
-            if (!_dbContext.Beverages.Contains(beverage))
-            {
-                return;
-            }
-            _dbContext.Beverages.Update(beverage);
-            _dbContext.SaveChanges();
+            existingBeverage.Name = updatedBeverage.Name;
+            existingBeverage.Description = updatedBeverage.Description;
+            existingBeverage.BeverageType = updatedBeverage.BeverageType;
+            existingBeverage.Ingredients = updatedBeverage.Ingredients;
+            existingBeverage.Allergens = updatedBeverage.Allergens;
+            existingBeverage.DateCreated = updatedBeverage.DateCreated;
+            existingBeverage.DateModified = updatedBeverage.DateModified;
+            await _dbContext.SaveChangesAsync();
         }
-        public void DeleteBeverage(string id)
-        {
-            var beverage = _dbContext.Beverages.FirstOrDefault(x => x.Id == id);
-            if (beverage == null)
-            {
-                return;
-            }
-            _dbContext.Beverages.Remove(beverage);
-            _dbContext.SaveChanges();
+        public async Task DeleteBeverage(Beverage beverage)
+        { 
+             _dbContext.Beverages.Remove(beverage);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
