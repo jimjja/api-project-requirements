@@ -5,6 +5,8 @@ There will be new requirements added when the old ones have been accomplished. E
 # More Information
 ##  [Context Provider](./Context.md) 
 
+## Uploading application
+Every developer can store their application in the folder **src/[Developer_Name]**
+
 # Notes
 Each develop can store their notes within the _Notes_ folder.
-
