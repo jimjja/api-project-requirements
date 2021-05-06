@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShalekKavy.Api.Models;
+using System;
 using System.Collections.Generic;
 
 namespace ShalekKavy.Api
@@ -13,6 +14,9 @@ namespace ShalekKavy.Api
         public List<string> Allergens { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public double Price { get; set; }
+        public BeverageSize Size { get; set; }
+        public BeverageAvailability Availability { get; set; }
     }
 
 }
