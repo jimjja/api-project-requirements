@@ -37,6 +37,7 @@ namespace ShalekKavy.Api.Services
         }
         public async Task AddBeverage(Beverage beverage)
         {
+            CheckAndSetPrice(beverage);
             _dbContext.Beverages.Add(beverage);
             await _dbContext.SaveChangesAsync();
         }
@@ -49,12 +50,32 @@ namespace ShalekKavy.Api.Services
             existingBeverage.Allergens = updatedBeverage.Allergens;
             existingBeverage.DateCreated = updatedBeverage.DateCreated;
             existingBeverage.DateModified = updatedBeverage.DateModified;
+            existingBeverage.Availability = updatedBeverage.Availability;
+            existingBeverage.Size = updatedBeverage.Size;
+
+            CheckAndSetPrice(updatedBeverage);
+            existingBeverage.Price = updatedBeverage.Price;
+
             await _dbContext.SaveChangesAsync();
         }
         public async Task DeleteBeverage(Beverage beverage)
         { 
              _dbContext.Beverages.Remove(beverage);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public void CheckAndSetPrice(Beverage beverage)
+        {
+            if(beverage.Size == Models.BeverageSize.Small)
+            {
+                beverage.Price = -0.5;
+            } else if(beverage.Size == Models.BeverageSize.Regular)
+            {
+                beverage.Price = 0;
+            } else
+            {
+                beverage.Price = 1;
+            }
         }
     }
 }

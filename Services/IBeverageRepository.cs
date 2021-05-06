@@ -14,5 +14,7 @@ namespace ShalekKavy.Api.Services
         public Task AddBeverage(Beverage beverage);
         public Task UpdateBeverage(Beverage existingBeverage, Beverage updatedBeverage);
         public Task DeleteBeverage(Beverage beverage);
+
+        public void CheckAndSetPrice(Beverage beverage);
     }
 }
