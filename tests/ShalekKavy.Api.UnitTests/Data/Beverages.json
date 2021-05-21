@@ -1,0 +1,152 @@
+[
+  {
+    "id": "1",
+    "name": "latte",
+    "description": "Blend espresso with steamed milk for a smooth and creamy coffee.",
+    "beverageType": 0,
+    "ingredients": [
+      "coffee",
+      "milk",
+      "sugar"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "price": 1,
+    "availability": 0,
+    "size": 1,
+    "addOns": [
+      {
+        "id": 1,
+        "name": "caramel syrup",
+        "price": 0.4,
+        "availability": 0,
+        "beverageId": "1",
+        "type": 1,
+        "dateCreated": "2021-01-01T08:24:17",
+        "dateModified": "2021-01-01T08:24:17"
+      }
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "2",
+    "name": "hot chocolate",
+    "description": "We only use the best cocoa for this indulgent drink. Perfect for days when you need a hug in a cup.",
+    "beverageType": 3,
+    "ingredients": [
+      "cocoa powder",
+      "milk",
+      "sugar"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "price": 1,
+    "availability": 0,
+    "size": 1,
+    "addOns": [
+      {
+        "id": 2,
+        "name": "chocolate shavings",
+        "price": 0.45,
+        "availability": 0,
+        "beverageId": "2",
+        "type": 1,
+        "dateCreated": "2021-01-01T08:24:17",
+        "dateModified": "2021-01-01T08:24:17"
+      }
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "3",
+    "name": "milk",
+    "description": "Fresh Cow's Milk",
+    "beverageType": 3,
+    "ingredients": [
+      "milk"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "price": 1,
+    "availability": 0,
+    "size": 2,
+    "addOns": [
+      {
+        "id": 3,
+        "name": "honey",
+        "price": 0.45,
+        "availability": 0,
+        "beverageId": "3",
+        "type": 1,
+        "dateCreated": "2021-01-01T08:24:17",
+        "dateModified": "2021-01-01T08:24:17"
+      }
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "4",
+    "name": "still water",
+    "description": "Still water",
+    "beverageType": 3,
+    "ingredients": [
+      "water"
+    ],
+    "allergens": [
+      "none"
+    ],
+    "price": 0.5,
+    "availability": 0,
+    "size": 0,
+    "addOns": [],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  },
+  {
+    "id": "5",
+    "name": "iced frappe",
+    "description": "iced frappe",
+    "beverageType": 3,
+    "ingredients": [
+      "coffee",
+      "milk",
+      "water"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "price": 1.5,
+    "availability": 0,
+    "size": 2,
+    "addOns": [
+      {
+        "id": 4,
+        "name": "toffee syrup",
+        "price": 0.45,
+        "availability": 0,
+        "beverageId": "5",
+        "type": 3,
+        "dateCreated": "2021-01-01T08:24:17",
+        "dateModified": "2021-01-01T08:24:17"
+      },
+      {
+        "id": 5,
+        "name": "whipped cream",
+        "price": 0.30,
+        "availability": 0,
+        "beverageId": "5",
+        "type": 0,
+        "dateCreated": "2021-01-01T08:24:17",
+        "dateModified": "2021-01-01T08:24:17"
+      }
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  }
+]

@@ -94,7 +94,7 @@ namespace ShalekKavy.Api.Controllers
         public async Task<IActionResult> UpdateBeverage([FromBody] Beverage beverage)
         {
             var beverages = await _repository.GetAll();
-            var existingBeverage = beverages.First(x => x.Id == beverage.Id);
+            var existingBeverage = beverages.FirstOrDefault(x => x.Id == beverage.Id);
 
             if (existingBeverage == null)
             {

@@ -1,0 +1,33 @@
+[
+  {
+    "id": "1",
+    "name": "latte",
+    "description": "Blend espresso with steamed milk for a smooth and creamy coffee.",
+    "beverageType": 0,
+    "ingredients": [
+      "coffee",
+      "milk",
+      "sugar"
+    ],
+    "allergens": [
+      "milk"
+    ],
+    "price": 1,
+    "availability": 0,
+    "size": 1,
+    "addOns": [
+      {
+        "id": 1,
+        "name": "caramel syrup",
+        "price": 0.4,
+        "availability": 0,
+        "beverageId": "1",
+        "type": 1,
+        "dateCreated": "2021-01-01T08:24:17",
+        "dateModified": "2021-01-01T08:24:17"
+      }
+    ],
+    "dateCreated": "2021-01-01T08:24:17",
+    "dateModified": "2021-01-01T08:24:17"
+  }
+]
