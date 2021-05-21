@@ -114,7 +114,7 @@ namespace ShalekKavy.Api.Controllers
                 return BadRequest(errorMessages);
             }
 
-            await _repository.UpdateBeverage(existingBeverage, beverage);
+            await _repository.UpdateBeverage(beverage);
 
             return Ok();
         }

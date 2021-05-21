@@ -69,7 +69,7 @@ namespace ShalekKavy.Api.Services
             _dbContext.Beverages.Add(beverage);
             await _dbContext.SaveChangesAsync();
         }
-        public async Task UpdateBeverage(Beverage existingBeverage, Beverage updatedBeverage)
+        public async Task UpdateBeverage(Beverage updatedBeverage)
         {
             CheckAndSetPrice(updatedBeverage);
 
