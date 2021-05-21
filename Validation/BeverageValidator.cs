@@ -10,10 +10,14 @@ namespace ShalekKavy.Api.Validation
     {
         public BeverageValidator()
         {
-            RuleFor(beverage => beverage.Id).NotNull().WithMessage("Empty id");
-            RuleFor(beverage => beverage.Description).NotNull().WithMessage("Empty id");
-            RuleFor(beverage => beverage.Ingredients).NotNull().WithMessage("Empty id");
-            RuleFor(beverage => beverage.Price).NotNull().GreaterThan(0).WithMessage("Please enter a price above 0");
+            RuleFor(beverage => beverage.Id).NotEmpty();
+            RuleFor(beverage => beverage.Description).NotEmpty();
+            RuleFor(beverage => beverage.BeverageType).IsInEnum();
+            RuleFor(beverage => beverage.Ingredients).NotEmpty();
+            RuleFor(beverage => beverage.Price).NotNull().GreaterThan(0);
+            RuleFor(beverage => beverage.Availability).IsInEnum();
+            RuleFor(beverage => beverage.Size).IsInEnum();
+            RuleForEach(beverage => beverage.AddOns).SetValidator(new AddOnsValidator());
         }
     }
 }

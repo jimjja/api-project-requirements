@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShalekKavy.Api
+namespace ShalekKavy.Api.Models.Enums
 {
     public enum BeverageType
     {
