@@ -7,6 +7,6 @@ namespace ShalekKavy.Api
         Coffee,
         Tea,
         SoftDrink,
-        Otherssss
+        Others
     }
 }
