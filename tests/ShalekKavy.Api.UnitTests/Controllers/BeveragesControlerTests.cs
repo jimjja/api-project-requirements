@@ -9,11 +9,22 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using ShalekKavy.Api.Models.Enums;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace ShalekKavy.Api.UnitTests.Controllers
 {
     public class BeveragesControlerTests
     {
+        private readonly Mock<IBeverageRepository> _dataProvider;
+        private readonly Mock<IValidator<Beverage>> _validator;
+
+        public BeveragesControlerTests()
+        {
+            _dataProvider = new Mock<IBeverageRepository>();
+            _validator = new Mock<IValidator<Beverage>>();
+        }
+
         [Fact]
         public async Task GetBeverages_ReturnsSuccess()
         {
@@ -22,10 +33,9 @@ namespace ShalekKavy.Api.UnitTests.Controllers
             var json = File.ReadAllText("./Data/Beverages.json");
             var expected = JsonConvert.DeserializeObject<List<Beverage>>(json);
 
-            var dataProvider = new Mock<IBeverageRepository>();
-            dataProvider.Setup(x => x.GetAll()).ReturnsAsync(expected);
+            _dataProvider.Setup(x => x.GetAll()).ReturnsAsync(expected);
 
-            var controller = new BeveragesController(dataProvider.Object);
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act
             var response = await controller.GetBeverages();
@@ -42,10 +52,10 @@ namespace ShalekKavy.Api.UnitTests.Controllers
             var expected = DataHelpers.DataHelpers.GetBeverageById();
             var id = "1";
 
-            var dataProvider = new Mock<IBeverageRepository>();
-            dataProvider.Setup(x => x.GetById(It.IsAny<string>())).ReturnsAsync(expected);
+           // var dataProvider = new Mock<IBeverageRepository>();
+            _dataProvider.Setup(x => x.GetById(It.IsAny<string>())).ReturnsAsync(expected);
 
-            var controller = new BeveragesController(dataProvider.Object);
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act
             var response = await controller.GetBeverageById(id);
@@ -62,11 +72,11 @@ namespace ShalekKavy.Api.UnitTests.Controllers
 
             var beverageName = "latte";
 
-            var dataProvider = new Mock<IBeverageRepository>();
+          //  var dataProvider = new Mock<IBeverageRepository>();
 
-            dataProvider.Setup(it => it.GetByBeverageName(It.IsAny<string>())).ReturnsAsync(expectedBeverage);
+            _dataProvider.Setup(it => it.GetByBeverageName(It.IsAny<string>())).ReturnsAsync(expectedBeverage);
 
-            var controller = new BeveragesController(dataProvider.Object);
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act 
             var response = await controller.GetByBeverageName(beverageName);
@@ -86,9 +96,9 @@ namespace ShalekKavy.Api.UnitTests.Controllers
 
             var dataProvider = new Mock<IBeverageRepository>();
 
-            dataProvider.Setup(it => it.GetByBeverageType(It.IsAny<BeverageType>())).ReturnsAsync(expected);
+            _dataProvider.Setup(it => it.GetByBeverageType(It.IsAny<BeverageType>())).ReturnsAsync(expected);
 
-            var controller = new BeveragesController(dataProvider.Object);
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act 
             var response = await controller.GetByBeverageType(beverageType);
@@ -112,11 +122,13 @@ namespace ShalekKavy.Api.UnitTests.Controllers
 
             var dataProvider = new Mock<IBeverageRepository>();
 
-            dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
+            _validator.Setup(x => x.Validate(It.IsAny<Beverage>())).Returns(new ValidationResult());
 
-            dataProvider.Setup(it => it.AddBeverage(It.IsAny<Beverage>()));
+            _dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
 
-            var controller = new BeveragesController(dataProvider.Object);
+            _dataProvider.Setup(it => it.AddBeverage(It.IsAny<Beverage>()));
+
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act 
             var response = await controller.AddBeverage(expected);
@@ -138,11 +150,13 @@ namespace ShalekKavy.Api.UnitTests.Controllers
 
             var dataProvider = new Mock<IBeverageRepository>();
 
-            dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
+            _validator.Setup(x => x.Validate(beverage)).Returns(new ValidationResult());
 
-            dataProvider.Setup(it => it.AddBeverage(It.IsAny<Beverage>()));
+            _dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
 
-            var controller = new BeveragesController(dataProvider.Object);
+            _dataProvider.Setup(it => it.AddBeverage(It.IsAny<Beverage>()));
+
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act 
             var response = await controller.AddBeverage(beverage);
@@ -167,12 +181,16 @@ namespace ShalekKavy.Api.UnitTests.Controllers
             var expected = new OkResult();
 
             // Arrange 
-            var dataProvider = new Mock<IBeverageRepository>();
-            dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
+           // var dataProvider = new Mock<IBeverageRepository>();
 
-            dataProvider.Setup(it => it.UpdateBeverage(It.IsAny<Beverage>()));
+            _validator.Setup(x => x.Validate(beverage)).Returns(new ValidationResult());
 
-            var controller = new BeveragesController(dataProvider.Object);
+            _dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
+
+            _dataProvider.Setup(it => it.UpdateBeverage(It.IsAny<Beverage>()));
+
+
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act 
             var response = await controller.UpdateBeverage(beverage);
@@ -192,12 +210,12 @@ namespace ShalekKavy.Api.UnitTests.Controllers
             beverage.Id = "34";
             var expectedValue = "A beverage with that id does not exist.";
 
-            var dataProvider = new Mock<IBeverageRepository>();
+            //var dataProvider = new Mock<IBeverageRepository>();
 
-            dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
-            dataProvider.Setup(it => it.UpdateBeverage(It.IsAny<Beverage>()));
+            _dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
+            _dataProvider.Setup(it => it.UpdateBeverage(It.IsAny<Beverage>()));
 
-            var controller = new BeveragesController(dataProvider.Object);
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act 
             var response = await controller.UpdateBeverage(beverage);
@@ -216,12 +234,12 @@ namespace ShalekKavy.Api.UnitTests.Controllers
             var id = beverage.Id;
 
             // Arrange 
-            var dataProvider = new Mock<IBeverageRepository>();
-            dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
+            //var dataProvider = new Mock<IBeverageRepository>();
+            _dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
 
-            dataProvider.Setup(it => it.DeleteBeverage(It.IsAny<Beverage>()));
+            _dataProvider.Setup(it => it.DeleteBeverage(It.IsAny<Beverage>()));
 
-            var controller = new BeveragesController(dataProvider.Object);
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
             // Act 
             var response = await controller.DeleteBeverage(id);
 
@@ -240,12 +258,13 @@ namespace ShalekKavy.Api.UnitTests.Controllers
             beverage.Id = "34";
             var expectedValue = "A beverage with that id does not exist.";
 
-            var dataProvider = new Mock<IBeverageRepository>();
-            dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
+            //var dataProvider = new Mock<IBeverageRepository>();
 
-            dataProvider.Setup(it => it.DeleteBeverage(It.IsAny<Beverage>()));
+            _dataProvider.Setup(it => it.GetAll()).ReturnsAsync(beverages);
 
-            var controller = new BeveragesController(dataProvider.Object);
+            _dataProvider.Setup(it => it.DeleteBeverage(It.IsAny<Beverage>()));
+
+            var controller = new BeveragesController(_dataProvider.Object, _validator.Object);
 
             // Act 
             var response = await controller.DeleteBeverage(beverage.Id);
