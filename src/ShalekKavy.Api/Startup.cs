@@ -8,6 +8,9 @@ using ShalekKavy.Api.Services;
 using System;
 using Microsoft.EntityFrameworkCore;
 using ShalekKavy.Api.Context;
+using FluentValidation;
+using ShalekKavy.Api.Validation;
+
 namespace ShalekKavy.Api
 {
     public class Startup
@@ -21,7 +24,7 @@ namespace ShalekKavy.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<BeverageContext>(options =>
-        options.UseNpgsql(Configuration.GetConnectionString("Beverages")));
+        options.UseNpgsql(Configuration.GetConnectionString("Beverages")), ServiceLifetime.Transient);
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -32,6 +35,9 @@ namespace ShalekKavy.Api
                 });
             });
             services.AddTransient<IBeverageRepository, BeverageRepository>();
+
+            services.AddSingleton<IValidator<Beverage>, BeverageValidator>();
+
             services.AddControllers();
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

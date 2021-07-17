@@ -1,8 +1,8 @@
-﻿using FluentValidation.Results;
+﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using ShalekKavy.Api.Models.Enums;
 using ShalekKavy.Api.Services;
-using ShalekKavy.Api.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,9 +13,11 @@ namespace ShalekKavy.Api.Controllers
     public class BeveragesController : ControllerBase
     {
         private readonly IBeverageRepository _repository;
-        public BeveragesController(IBeverageRepository repository)
+        private readonly IValidator<Beverage> _validator;
+        public BeveragesController(IBeverageRepository repository, IValidator<Beverage> validator)
         {
             _repository = repository;
+            _validator = validator;
         }
         // GET: BeverageController>
         [HttpGet]
@@ -67,11 +69,9 @@ namespace ShalekKavy.Api.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddBeverage([FromBody] Beverage beverage)
         {
-            // VALIDATION - 1. Instantiate the validator object 
-            BeverageValidator validator = new BeverageValidator();
 
             // VALIDATION - 2. Call the validate method, with the object you want to validate
-            ValidationResult result = validator.Validate(beverage);
+            ValidationResult result = _validator.Validate(beverage);
 
             // VALIDATION - 3. Check if the results of the validation are not valid 
             if (!result.IsValid)
@@ -101,11 +101,8 @@ namespace ShalekKavy.Api.Controllers
                 return BadRequest("A beverage with that id does not exist.");
             }
 
-            // VALIDATION - 1. Instantiate the validator object 
-            BeverageValidator validator = new BeverageValidator();
-
             // VALIDATION - 2. Call the validate method, with the object you want to validate
-            ValidationResult result = validator.Validate(beverage);
+            ValidationResult result = _validator.Validate(beverage);
 
             // VALIDATION - 3. Check if the results of the validation are not valid 
             if (!result.IsValid)
