@@ -14,17 +14,10 @@ namespace ShalekKavy.Api.Services
         {
             _dbContext = dbContext;
         }
-        public IQueryable<Beverage> GetAllBeverages()
-        {
-            var beverages = _dbContext.Beverages
-                .Include(x => x.AddOns)
-                .AsNoTracking();
-
-            return beverages;
-        }
         public async Task<List<Beverage>> GetAll()
         {
-            var beverages = await GetAllBeverages()
+            var beverages = await _dbContext.Beverages
+                .Include(x => x.AddOns)
                 .ToListAsync();
 
             return beverages;
@@ -32,22 +25,25 @@ namespace ShalekKavy.Api.Services
         public async Task<Beverage> GetById(string id)
         {
 
-            var beverage = await GetAllBeverages()
+            var beverage = await _dbContext.Beverages
+                .Include(x => x.AddOns)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return beverage;
         }
         public async Task<Beverage> GetByBeverageName(string name)
         {
-            var beverage = await GetAllBeverages()
+            var beverage = await _dbContext.Beverages
+                .Include(x => x.AddOns)
                 .FirstOrDefaultAsync(x => x.Name == name);
 
             return beverage;
         }
         public async Task<List<Beverage>> GetByBeverageType(BeverageType type)
         {
-            var beverages = await GetAllBeverages()
+            var beverages = await _dbContext.Beverages
                 .Where(x => x.BeverageType == type)
+                .Include(x => x.AddOns)
                 .ToListAsync();
 
             return beverages;
@@ -82,8 +78,14 @@ namespace ShalekKavy.Api.Services
 
                 return x;
             }).ToList();
+            var beverage = _dbContext.Beverages.FirstOrDefault(x => x.Id == updatedBeverage.Id);
 
-            _dbContext.Beverages.Update(updatedBeverage);
+            //_dbContext.Entry(updatedBeverage).State = EntityState.Detached;
+            //_dbContext.Beverages.Update(updatedBeverage);
+            //await _dbContext.SaveChangesAsync();
+            _dbContext.Beverages.Remove(beverage);
+            _dbContext.Beverages.Add(updatedBeverage);
+            
             await _dbContext.SaveChangesAsync();
         }
         public async Task DeleteBeverage(Beverage beverage)
@@ -94,18 +96,22 @@ namespace ShalekKavy.Api.Services
 
         public void CheckAndSetPrice(Beverage beverage)
         {
-            if (beverage.Size == BeverageSize.Small)
+            // using dictionary
+            var beveragePrices = new Dictionary<BeverageSize, double>()
             {
-                beverage.Price = 0.5;
-            }
-            else if (beverage.Size == BeverageSize.Regular)
+                { BeverageSize.Small, 0.5 },
+                { BeverageSize.Regular, 1 },
+                { BeverageSize.Large, 1.5 }
+            };
+
+            foreach (KeyValuePair<BeverageSize, double> price in beveragePrices)
             {
-                beverage.Price = 1;
+                if (price.Key == beverage.Size)
+                {
+                    beverage.Price = price.Value;
+                }
             }
-            else
-            {
-                beverage.Price = 1.5;
-            }
+
+        }
         }
     }
-}

@@ -8,7 +8,6 @@ namespace ShalekKavy.Api.Services
 {
     public interface IBeverageRepository
     {
-        public IQueryable<Beverage> GetAllBeverages();
         public Task<List<Beverage>> GetAll();
         public Task<Beverage> GetById(string id);
         public Task<Beverage> GetByBeverageName(string name);
