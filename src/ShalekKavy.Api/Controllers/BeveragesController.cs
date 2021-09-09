@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using ShalekKavy.Api.Models.Enums;
 using ShalekKavy.Api.Services;
+using ShalekKavy.Api.Validation;
+using ShalekKavy.Api.Validation.Validators;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,9 +15,12 @@ namespace ShalekKavy.Api.Controllers
     public class BeveragesController : ControllerBase
     {
         private readonly IBeverageRepository _repository;
-        public BeveragesController(IBeverageRepository repository)
+        private readonly FluentValidation.IValidator<Beverage> _validator;
+
+        public BeveragesController(IBeverageRepository repository, FluentValidation.IValidator<Beverage> validator)
         {
             _repository = repository;
+            _validator = validator;
         }
         // GET: BeverageController>
         [HttpGet]
@@ -27,7 +35,7 @@ namespace ShalekKavy.Api.Controllers
         {
             var beverage = await _repository.GetById(id);
 
-            if(beverage == null)
+            if (beverage == null)
             {
                 return BadRequest("A beverage with that Id does not exist.");
             }
@@ -64,6 +72,17 @@ namespace ShalekKavy.Api.Controllers
         [HttpPost("add")]
         public async Task<IActionResult> AddBeverage([FromBody] Beverage beverage)
         {
+
+           // VALIDATION - 2. Call the validate method, with the object you want to validate
+            ValidationResult result = _validator.Validate(beverage);
+
+            // VALIDATION - 3. Check if the results of the validation are not valid 
+            if (!result.IsValid)
+            {
+                var errorMessages = result.ToString("-");
+                return BadRequest(errorMessages);
+            }
+
             var beverages = await _repository.GetAll();
             var existingBeverage = beverages.FirstOrDefault(x => x.Id == beverage.Id);
             if (existingBeverage != null)
@@ -78,13 +97,24 @@ namespace ShalekKavy.Api.Controllers
         public async Task<IActionResult> UpdateBeverage([FromBody] Beverage beverage)
         {
             var beverages = await _repository.GetAll();
-            var existingBeverage = beverages.First(x => x.Id == beverage.Id);
+            var existingBeverage = beverages.FirstOrDefault(x => x.Id == beverage.Id);
 
             if (existingBeverage == null)
             {
                 return BadRequest("A beverage with that id does not exist.");
             }
-            await _repository.UpdateBeverage(existingBeverage, beverage);
+
+            // VALIDATION - 2. Call the validate method, with the object you want to validate
+            ValidationResult result = _validator.Validate(beverage);
+
+            // VALIDATION - 3. Check if the results of the validation are not valid 
+            if (!result.IsValid)
+            {
+                var errorMessages = result.ToString("-");
+                return BadRequest(errorMessages);
+            }
+
+            await _repository.UpdateBeverage(beverage);
 
             return Ok();
         }
