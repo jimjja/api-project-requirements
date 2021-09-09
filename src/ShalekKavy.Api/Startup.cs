@@ -8,6 +8,7 @@ using ShalekKavy.Api.Services;
 using System;
 using Microsoft.EntityFrameworkCore;
 using ShalekKavy.Api.Context;
+using FluentValidation.AspNetCore;
 using FluentValidation;
 using ShalekKavy.Api.Validation;
 
@@ -36,9 +37,10 @@ namespace ShalekKavy.Api
             });
             services.AddTransient<IBeverageRepository, BeverageRepository>();
 
-            services.AddSingleton<IValidator<Beverage>, BeverageValidator>();
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<BeverageValidator>());
 
-            services.AddControllers();
+            services.AddSingleton<FluentValidation.IValidator<Beverage>, BeverageValidator>();
+
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
