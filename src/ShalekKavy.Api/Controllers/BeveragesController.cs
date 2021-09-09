@@ -3,6 +3,8 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using ShalekKavy.Api.Models.Enums;
 using ShalekKavy.Api.Services;
+using ShalekKavy.Api.Validation;
+using ShalekKavy.Api.Validation.Validators;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,8 +15,9 @@ namespace ShalekKavy.Api.Controllers
     public class BeveragesController : ControllerBase
     {
         private readonly IBeverageRepository _repository;
-        private readonly IValidator<Beverage> _validator;
-        public BeveragesController(IBeverageRepository repository, IValidator<Beverage> validator)
+        private readonly FluentValidation.IValidator<Beverage> _validator;
+
+        public BeveragesController(IBeverageRepository repository, FluentValidation.IValidator<Beverage> validator)
         {
             _repository = repository;
             _validator = validator;
@@ -70,7 +73,7 @@ namespace ShalekKavy.Api.Controllers
         public async Task<IActionResult> AddBeverage([FromBody] Beverage beverage)
         {
 
-            // VALIDATION - 2. Call the validate method, with the object you want to validate
+           // VALIDATION - 2. Call the validate method, with the object you want to validate
             ValidationResult result = _validator.Validate(beverage);
 
             // VALIDATION - 3. Check if the results of the validation are not valid 
